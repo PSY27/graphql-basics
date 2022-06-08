@@ -1,4 +1,5 @@
-const { ApolloServer, gql } = require("apollo-server-express");
+import { gql } from "apollo-server-express"
+
 const typeDefs = gql`
 type Post{
   id:ID
@@ -20,6 +21,6 @@ type Post{
     createPost(post:PostInput):Post
     deletePost(id:ID):String
     updatePost(id:ID,post:PostInput):Post
-  }
-`;
+  }`
+
 module.exports= typeDefs

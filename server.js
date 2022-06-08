@@ -1,8 +1,8 @@
-const express = require("express");
-const { ApolloServer, gql } = require("apollo-server-express");
-const resolvers = require("./resolver");
-const typeDefs = require("./typeDefs");
-const mongoose = require("mongoose");
+import { ApolloServer } from "apollo-server-express"
+import express from "express"
+import mongoose from "mongoose"
+import resolvers from "./resolver"
+import typeDefs from "./typeDefs"
 
 async function startServer() {
   const app = express();
@@ -12,10 +12,9 @@ async function startServer() {
   });
 
   await apolloserver.start();
-
   apolloserver.applyMiddleware({ app: app });
 
-  app.use((req, res) => {
+  app.use((_, res) => {
     res.send("hello from express");
   });
 
@@ -23,4 +22,5 @@ async function startServer() {
   console.log('MongoDb connected');
   app.listen(4000, () => console.log("Server is running on port 4000"));
 }
+
 startServer();
