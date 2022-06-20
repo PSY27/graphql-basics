@@ -1,4 +1,4 @@
-import Post from './models/Post.model'
+const Post = require('./models/Post.model')
 const resolvers = {
     Query: {
       hello: () => {
@@ -8,23 +8,23 @@ const resolvers = {
         const posts = await Post.find()
         return posts
       },
-      getPostById: async ({id})=>{
+      getPostById: async (parent,{id},context,info)=>{
         return await Post.findById(id)
       }
     },
     Mutation:{
-      createPost:async (args)=>{
+      createPost:async (parent,args,context,info)=>{
         const { title,description} = args.post
         const post =new Post({title,description})
         await post.save();
         return post;
       },
-      deletePost: async(args)=>{
+      deletePost: async(parent,args,context,info)=>{
         const {id} = args
         await Post.findByIdAndDelete(id)
         return "Ok post deleted"
       },
-      updatePost:async(args)=>{
+      updatePost:async(parent,args,context,info)=>{
         const {id} = args
         const { title,description} = args.post
         const post =await Post.findByIdAndUpdate(id,{ title,description},{new:true});
